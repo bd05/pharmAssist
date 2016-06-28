@@ -1,0 +1,63 @@
+<!-- File: index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- JS dependencies -->
+    <!-- AngularJS library -->
+    <script src="../js/angular.js"></script>
+    <!-- AngularJS UI-Router -->
+    <script src="../js/angular-ui-router.js"></script>
+    <!-- Our application -->
+    <script src="../js/application.js"></script>
+
+    <!-- Bootstrap Core CSS-->
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../stylesheets/sb-admin.css" rel="stylesheet">
+
+    <!-- angular-xeditable -->
+    <link href="../stylesheets/xeditable.css" rel="stylesheet">
+    <script src="../js/xeditable.js"></script>
+
+    <title>Angular PharmAssist</title>
+</head>
+<!-- AngularJS Application -->
+<body ng-app="app">
+
+<!-- pharmApp nav -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">PharmAssist</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+            <li>
+                <a ui-sref="patientDirectory">Patient Directory</a>
+            </li>
+            <li class="active">
+                <a ui-sref="patient">Example Patient Name</a>
+            </li>
+            <li>
+                <a ui-sref="inventory">Inventory</a>
+            </li>
+            <li>
+                <a ui-sref="doctors">Doctors</a>
+            </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- end pharmApp nav -->
+
+
+<div class="container">
+    <!-- ui-view attribute is the indicator where to inject the views managed by AngularJS UI-Router -->
+    <div ui-view></div>
+</div> 
+</body>
+</html>
