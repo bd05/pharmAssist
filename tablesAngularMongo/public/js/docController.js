@@ -1,4 +1,4 @@
-app.controller('docController', function($scope) {
+app.controller('docController', function($scope, $compile) {
          $scope.doctors = [
                         {
                             name: 'Fernadette Deung',
@@ -61,9 +61,34 @@ app.controller('docController', function($scope) {
                   tdName.html("<input type='text' id='txtName' value='"+tdName.html()+"'/>");
                   tdClinic.html("<input type='text' id='txtClinic' value='"+tdClinic.html()+"'/>");
                   tdPhone.html("<input type='text' id='txtPhone' value='"+tdPhone.html()+"'/>");
-                    tdAddress.html("<input type='text' id='txtAddress' value='"+tdAddress.html()+"'/>");
+                  tdAddress.html("<input type='text' id='txtAddress' value='"+tdAddress.html()+"'/>");
                   tdSaveButton.html("<input type='button' class='btn btn-success' id='btnSave' value='Save'>");
                   tdDeleteButton.html("<input type='button' class='btn btn-danger' id='btnDelete' value='Delete'>");
-                }         
 
+                  /*var divTemplate = "<input type='button' class='btn btn-danger' id='btnDelete' value='Delete'>";
+                  var temp = $compile(divTemplate)($scope); */
+
+                  /*var div = angular.element(document.querySelector('#btnDelete'));
+                  console.log(div);
+                  div.bind('click', $scope.delDoc());*/
+
+                  var btnhtml = '<button type="button" ng-click="delDoc()">Click Me</button>';
+                  var temp = $compile(btnhtml)($scope);
+                  angular.element(document.querySelector('#tblData')).append(temp);
+
+                }     
+
+        $scope.delDoc = function() {
+          console.log("delete doc");
+        }
+
+
+});
+
+app.directive('helloWorld', function() {
+  return {
+      restrict: 'AE',
+      replace: 'true',
+      template: '<h3>Hello World!!</h3>'
+  };
 });
