@@ -11,6 +11,12 @@ app.controller('docController', function($scope, $compile) {
                             clinic: 1765765,
                             phone: '123-4567-890',
                             address:'DoctorLand Rd, DoctorLand Province'
+                        },
+                        {
+                            name: 'tester test',
+                            clinic: 1765765,
+                            phone: '123-4567-890',
+                            address:'DoctorLand Rd, DoctorLand Province'
                         }
                  ];
 
@@ -49,9 +55,9 @@ app.controller('docController', function($scope, $compile) {
 
                 $scope.editDoc = function($event) {
                     console.log("edit doc");
-                    var par = $($event.target).parent().parent();
+                    var par = $($event.target).parent().parent(); //tr
                     console.log(par);
-                    var tdName = par.children("td:nth-child(1)");
+                    var tdName = par.children("td:nth-child(1)"); //td
                     var tdClinic = par.children("td:nth-child(2)");
                     var tdPhone = par.children("td:nth-child(3)");
                     var tdAddress = par.children("td:nth-child(4)");
@@ -63,23 +69,18 @@ app.controller('docController', function($scope, $compile) {
                   tdPhone.html("<input type='text' id='txtPhone' value='"+tdPhone.html()+"'/>");
                   tdAddress.html("<input type='text' id='txtAddress' value='"+tdAddress.html()+"'/>");
                   tdSaveButton.html("<input type='button' class='btn btn-success' id='btnSave' value='Save'>");
-                  tdDeleteButton.html("<input type='button' class='btn btn-danger' id='btnDelete' value='Delete'>");
+                  //tdDeleteButton.html("<input type='button' class='btn btn-danger' id='btnDelete' value='Delete'>");
 
-                  /*var divTemplate = "<input type='button' class='btn btn-danger' id='btnDelete' value='Delete'>";
-                  var temp = $compile(divTemplate)($scope); */
-
-                  /*var div = angular.element(document.querySelector('#btnDelete'));
-                  console.log(div);
-                  div.bind('click', $scope.delDoc());*/
-
-                  var btnhtml = '<button type="button" ng-click="delDoc()">Click Me</button>';
-                  var temp = $compile(btnhtml)($scope);
-                  angular.element(document.querySelector('#tblData')).append(temp);
+                  var delBtnHTML = "<input type='button' class='btn btn-danger' id='btnDelete' value='Delete' ng-click='delDoc($event)'> ";
+                  var tdDeleteButton = $compile(delBtnHTML)($scope);
+                  par.append(tdDeleteButton);
 
                 }     
 
-        $scope.delDoc = function() {
+        $scope.delDoc = function($event) {
           console.log("delete doc");
+          var par = $($event.target).parent(); //tr
+          par.remove();
         }
 
 
