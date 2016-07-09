@@ -32,11 +32,9 @@ app.controller('docController', function($scope, $compile) {
                               "</tr>");
                   }
 
-                $scope.saveDoc = function(obj) {
+                $scope.saveDoc = function($event) {
                   console.log("save button does sth");
-                       /*var id = obj.target.attributes.id.value;
-                       console.log(id);
-                       var par = id.parentElement.parentElement; //tr
+                       var par = $($event.target).parent().parent(); //tr
                        console.log(par);
                        var tdName = par.children("td:nth-child(1)");
                        var tdClinic = par.children("td:nth-child(2)");
@@ -50,7 +48,7 @@ app.controller('docController', function($scope, $compile) {
                        tdPhone.html(tdPhone.children("input[type=text]").val());
                        tdAddress.html(tdAddress.children("input[type=text]").val());
                        tdEditButton.html("<input type='button' class='btn btn-warning btnEdit' id='btnEdit' value='Edit'>");
-                       tdBlank.html("<p></p>");*/
+                       tdBlank.html("<p></p>");
                   }
 
                 $scope.editDoc = function($event) {
