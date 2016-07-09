@@ -22,6 +22,10 @@
                         <td>{{doctor.clinic}}</td>
                         <td>{{doctor.phone}}</td>
                         <td>{{doctor.address}}</td>
+                        <td>
+                            <button id="btnEdit" type="button" class="btn btn-warning" ng-click="editDoc($event)">Edit</button>
+                        </td>
+                        <td></td>
                         </tr>
                     </tbody>
                   </table> 
@@ -31,6 +35,6 @@
         </div>
     </div>
     <div class="panel-footer">
-        <button id="btnAdd" type="button" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i> Add a Doctor</button>
+        <button id="btnAdd" type="button" class="btn btn-danger" ng-click="addDoc()"><i class="glyphicon glyphicon-plus"></i> Add a Doctor</button>
     </div>
 </div>

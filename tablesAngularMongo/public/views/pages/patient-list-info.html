@@ -1,34 +1,84 @@
-<div class="table-responsive">
-  <table class="table table-hover">
-      <tbody>
-        <tr>
-          <td>SIN:</td>
-          <td id="tdSIN">{{sin}}</td>
-        </tr>
-        <tr>
-          <td>Address:</td>
-          <td id="tdAddress">{{address}}</td>
-        </tr>
-        <tr>
-          <td>Date of Birth</td>
-          <td id="tdBirth">{{birth}}</td>
-        </tr>
-        <tr>
-          <td>Gender</td>
-          <td id="tdGender">{{gender}}</td>
-        </tr>
-        <tr>
-          <td>Phone Number</td>
-          <td id="tdPhone">{{phoneHome}}<br><br>{{phoneMobile}}</td>
-        </tr>
-        <tr>
-          <td>Allergies to medications</td>
-          <td id="tdAllergies">{{allergies}}</td>
-        </tr>
-        <tr>
-          <td>Insurance</td>
-          <td id="tdInsurance">{{insurance}}</td>
-        </tr>
-      </tbody>
-  </table>
+<div class="panel-heading">
+    <h3 class="panel-title">Personal information</h3>
 </div>
+
+<form editable-form name="editableForm" onaftersave="saveUser()">
+    <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <td>SIN:</td>
+                          <td> 
+                            <div id="tdSIN" editable-text="patientInfo.sin" e-name="sin" onbeforesave="checkName($data)" e-required>{{ patientInfo.sin || 'empty' }}</div>
+                          </td>
+                      </tr>
+                      <tr>
+                        <td>Address:</td>
+                        <td> 
+                          <div id="tdAddress" editable-text="patientInfo.address" e-name="address" onbeforesave="checkName($data)" e-required>{{ patientInfo.address || 'empty' }} </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Date of Birth</td>
+                        <td> 
+                          <div id="tdBirth" editable-text="patientInfo.birth" e-name="birth" onbeforesave="checkName($data)" e-required>{{ patientInfo.birth || 'empty' }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Gender</td>
+                        <td> 
+                          <div id="tdGender" editable-text="patientInfo.gender" e-name="gender" onbeforesave="checkName($data)" e-required>{{ patientInfo.gender || 'empty' }} </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Phone Number</td>
+                        <td id="tdPhone">
+                          <div editable-text="patientInfo.phoneHome" e-name="phoneHome" onbeforesave="checkName($data)" e-required>
+                          {{ patientInfo.phoneHome || 'empty' }} </div>
+                          <br><br>
+                          <div editable-text="patientInfo.phoneMobile" e-name="phoneMobile" onbeforesave="checkName($data)" e-required>{{ patientInfo.phoneMobile || 'empty' }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Allergies to medications</td>
+                        <td> 
+                          <div id="tdAllergies" editable-text="patientInfo.allergies" e-name="allergies" onbeforesave="checkName($data)" e-required>{{ patientInfo.allergies || 'empty' }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Insurance</td>
+                        <td> 
+                          <div id="tdInsurance" editable-text="patientInfo.insurance" e-name="insurance" onbeforesave="checkName($data)" e-required>{{ patientInfo.insurance || 'empty' }}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="panel-footer" id="patientInfoFooter">
+                    <!--<button id="btnEdit" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i>Edit</button> -->
+          <div class="buttons">
+              <!-- button to show form -->
+              <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                Edit
+              </button>
+              <button ng-click="test()">pls</button>
+              <!-- buttons to submit / cancel form -->
+              <span ng-show="editableForm.$visible">
+                  <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                    Cancel
+                  </button>
+              </span>
+          </div>
+    </div>
+
+</form>
