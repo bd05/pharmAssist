@@ -5,8 +5,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="table-responsive"> 
-                     <form editable-form name="tableform" onaftersave="saveTable()" oncancel="cancel()">     
+                <div class="table-responsive">    
                       <table class="table table-user-information" id="tblData">
                         <thead>
                             <tr>
@@ -19,51 +18,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="patient in patients | filter:filterPatient">
-                            <!-- <td>{{patient.name}}</td> -->
+                            <tr ng-repeat="patient in patients">
+                            <td>{{ patient.name}}</td>
+                            <td>{{ patient.sin}}</td>
+                            <td>{{ patient.gender}}</td>
+                            <td>{{ patient.birth}}</td>
+                            <td>{{ patient.phone}}</td>
                             <td>
-                              <!-- editable name (text with validation) -->
-                              <span editable-text="patient.name" e-form="tableform">
-                                {{ patient.name || 'empty' }}
-                              </span>
+                              <button id="btnEdit" type="button" class="btn btn-warning btnEdit" ng-click="editPatient($event)">Edit</button>
                             </td>
-                            <td>
-                              <span editable-text="patient.sin" e-form="tableform">
-                                {{ patient.sin || 'empty' }}
-                              </span>
-                            </td>
-                            <td>
-                              <span editable-text="patient.gender" e-form="tableform">
-                                {{ patient.gender || 'empty' }}
-                              </span>
-                            </td>
-                            <td>
-                              <span editable-text="patient.birth" e-form="tableform">
-                                {{ patient.birth || 'empty' }}
-                              </span>
-                            </td>
-                            <td>
-                              <span editable-text="patient.phone" e-form="tableform">
-                                {{ patient.phone || 'empty' }}
-                              </span>
-                            </td>
-                            <td><button type="button" ng-show="tableform.$visible" ng-click="deletePatient(patient.id)" class="btn btn-danger pull-right">Del</button></td>
+                            <td></td>
                             </tr>
                         </tbody>
                       </table> 
-                     </form>
                 </div>
 
             </div>
         </div>
     </div>
     <div class="panel-footer">
-        <button type="button" class="btn btn-default" ng-show="!tableform.$visible" ng-click="tableform.$show()">Edit</button>
-
-        <div class="btn-form" ng-show="tableform.$visible">
-          <button type="button" ng-disabled="tableform.$waiting" ng-click="addPatient()" class="btn btn-default pull-right">add row</button>
-          <button type="submit" ng-disabled="tableform.$waiting" class="btn btn-primary">save</button>
-          <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn btn-default">cancel</button>
-        </div> 
+        <button id="btnAdd" type="button" class="btn btn-danger" ng-click="addPatient($event)"><i class="glyphicon glyphicon-plus"></i> Add a Patient</button>
     </div>
 </div>

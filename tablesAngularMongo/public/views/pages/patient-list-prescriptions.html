@@ -1,29 +1,44 @@
-<div class="table-responsive">
-    <table id="prescriptionTable" class="table table-hover">
-        <thead>
-            <tr>
-                <th>Medication Name</th>
-                <th>Prescription Number</th>
-                <th>DIN Number</th>
-                <th>Doctor Name</th>
-                <th>Quantity</th>
-                <th>Refill Frequency</th>
-                <th>Expiration Date</th>
-                <th>How to Apply/Dosage</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="prescription in prescHistory">
-                <td>{{prescription.name}}</td>
-                <td>{{prescription.prescNum}}</td>
-                <td>{{prescription.DIN}}</td>
-                <td>{{prescription.doctor}}</td>
-                <td>{{prescription.quantity}}</td>
-                <td>{{prescription.refill}}</td>
-                <td>{{prescription.expiration}}</td>
-                <td>{{prescription.instructions}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div><!--end div class table-responsive-->  
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Prescriptions</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                <div class="table-responsive">
+                    <table id="prescriptionTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Medication Name</th>
+                                <th>Prescription Number</th>
+                                <th>DIN Number</th>
+                                <th>Doctor Name</th>
+                                <th>Quantity</th>
+                                <th>Refill Frequency</th>
+                                <th>Expiration Date</th>
+                                <th>How to Apply/Dosage</th>
+                                <th></th> <!--for refill input and button-->
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="prescription in prescHistory">
+                                <td>{{prescription.name}}</td>
+                                <td>{{prescription.prescNum}}</td>
+                                <td>{{prescription.DIN}}</td>
+                                <td>{{prescription.doctor}}</td>
+                                <td>{{prescription.quantity}}</td>
+                                <td>{{prescription.refill}}</td>
+                                <td>{{prescription.expiration}}</td>
+                                <td>{{prescription.instructions}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!--end div class table-responsive-->  
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button id="btnAdd" type="button" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i> Add Medication</button>
+    </div>
+</div>

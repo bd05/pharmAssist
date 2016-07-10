@@ -21,7 +21,6 @@ app.controller('drugController', function($scope, $compile) {
                     "<td><input type='text'/></td>"+
                     "<td><input type='text'/></td>"+
                     "<td><input type='text'/></td>"+
-                    "<td><input type='text'/></td>"+
                     "<td><input type='button' class='btn btn-info' id='btnSave' value='Save''></td>"+
                     "<td><p></p></td>"+
                     "</tr>");
@@ -38,15 +37,13 @@ app.controller('drugController', function($scope, $compile) {
                 console.log(par);
                 var tdName = par.children("td:nth-child(1)");
                 var tdDIN = par.children("td:nth-child(2)");
-                var tdForm = par.children("td:nth-child(3)");
-                var tdDescription = par.children("td:nth-child(4)");
-                var tdInstruction = par.children("td:nth-child(5)");
-                var tdEditButton = par.children("td:nth-child(6)");
-                var tdBlank = par.children("td:nth-child(7)");
+                var tdDescription = par.children("td:nth-child(3)");
+                var tdInstruction = par.children("td:nth-child(4)");
+                var tdEditButton = par.children("td:nth-child(5)");
+                var tdBlank = par.children("td:nth-child(6)");
 
                 tdName.html(tdName.children("input[type=text]").val());
                 tdDIN.html(tdDIN.children("input[type=text]").val());
-                tdForm.html(tdForm.children("input[type=text]").val());
                 tdDescription.html(tdDescription.children("input[type=text]").val());
                 tdInstruction.html(tdInstruction.children("input[type=text]").val());
                 //edit row button
@@ -62,15 +59,13 @@ app.controller('drugController', function($scope, $compile) {
                 console.log(par);
                 var tdName = par.children("td:nth-child(1)");
                 var tdDIN = par.children("td:nth-child(2)");
-                var tdForm = par.children("td:nth-child(3)");
-                var tdDescription = par.children("td:nth-child(4)");
-                var tdInstruction = par.children("td:nth-child(5)");
-                var tdSaveButton = par.children("td:nth-child(6)");
-                var tdDeleteButton = par.children("td:nth-child(7)");
+                var tdDescription = par.children("td:nth-child(3)");
+                var tdInstruction = par.children("td:nth-child(4)");
+                var tdSaveButton = par.children("td:nth-child(5)");
+                var tdDeleteButton = par.children("td:nth-child(6)");
 
                 tdName.html("<input type='text' id='txtName' value='"+tdName.html()+"'/>");
                 tdDIN.html("<input type='text' value='"+tdDIN.html()+"'/>");
-                tdForm.html("<input type='text' value='"+tdForm.html()+"'/>");
                 tdDescription.html("<input type='text' value='"+tdDescription.html()+"'/>");
                 tdInstruction.html("<input type='text' value='"+tdInstruction.html()+"'/>");
                 //save row button
