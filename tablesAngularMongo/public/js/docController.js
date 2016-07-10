@@ -1,5 +1,5 @@
 app.controller('docController', function($scope, $compile) {
-         $scope.doctors = [
+        $scope.doctors = [
                         {
                             name: 'Fernadette Deung',
                             clinic: 1765765,
@@ -20,17 +20,26 @@ app.controller('docController', function($scope, $compile) {
                         }
                  ];
 
-        $scope.addDoc = function(){
-                          angular.element(document.querySelector('#tblData')).append(
+        $scope.addDoc = function($event){
+                  angular.element(document.querySelector('#tblData')).append(
                               "<tr>"+
                               "<td><input type='text'/></td>"+
                               "<td><input type='text'/></td>"+
                               "<td><input type='text'/></td>"+
                               "<td><input type='text'/></td>"+
-                              "<td><input type='button' class='btn btn-info' id='btnSave' value='Save' ng-click='saveDoc($event)'></td>"+
+                              "<td><input type='button' class='btn btn-info' id='btnSave' value='Save''></td>"+
                               "<td><p></p></td>"+
                               "</tr>");
-                  }
+
+                  angular.element(document.querySelector('#btnSave')).bind("click", function(e){
+                    console.log("gonna go to button save");
+                    $scope.saveDoc(e);
+                  });
+              }
+
+                $scope.firstSave = function($event) {
+                  console.log("first save");
+                }
 
                 $scope.saveDoc = function($event) {
                   console.log("save button does sth");
@@ -47,8 +56,11 @@ app.controller('docController', function($scope, $compile) {
                        tdClinic.html(tdClinic.children("input[type=text]").val());
                        tdPhone.html(tdPhone.children("input[type=text]").val());
                        tdAddress.html(tdAddress.children("input[type=text]").val());
-                       tdEditButton.html("<input type='button' class='btn btn-warning btnEdit' id='btnEdit' value='Edit'>");
-                       tdBlank.html("<p></p>");
+                       //edit row button
+                       var editBtnHTML = "<input type='button' class='btn btn-warning' id='btnEdit' value='Edit' ng-click='editDoc($event)'> ";
+                       var editButton = $compile(editBtnHTML)($scope);
+                       tdEditButton.html(editButton);
+                       tdBlank.html("<p></p>"); //to erase the delete button
                   }
 
                 $scope.editDoc = function($event) {
@@ -85,10 +97,10 @@ app.controller('docController', function($scope, $compile) {
 
 });
 
-app.directive('helloWorld', function() {
+/*app.directive('helloWorld', function() {
   return {
       restrict: 'AE',
       replace: 'true',
       template: '<h3>Hello World!!</h3>'
   };
-});
+});*/
