@@ -50,3 +50,41 @@
         <button class="btn btn-default" ng-click="addPresc($event)">Add row</button>
     </div>
 </div>
+
+<div><!--test spark photon button-->
+    <p>User Specified number: <span id="curPos"></span><br></p>
+      <p>
+        Value retrieved from spark: <span id="gotPos"></span>
+      </p>
+      <br>
+      <form action="demo_form.asp">
+      test int input: <input type="text" id="degBoxId"><br>
+      </form>
+      <button onclick="setValue()">send number of pills</button>
+      <button onclick="getSparkValue()">Click for spark value</button>
+
+        <script type="text/javascript">
+          var deviceID    = "1a003a001247343339383037";
+          var accessToken = "d049cd8a80da947956c2421bc3bb5ae2fbf34d5e";
+          var setFunc = "setVal";
+          var getFunc = "getVal";
+          function setValue() {
+            console.log("got to setValue");
+            var newValue = document.getElementById('degBoxId').value;
+            console.log("newValue as of setValue: " + newValue);
+            sendSparkPills(newValue);
+          }
+          function sendSparkPills(newValue) {
+        var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
+            $.post( requestURL, { params: newValue, access_token: accessToken });
+            //display on web page
+            document.getElementById("curPos").innerHTML = newValue;
+          }
+        function getSparkValue(){
+          requestURL = "https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken;
+            $.getJSON(requestURL, function(json) {
+                     document.getElementById("gotPos").innerHTML = json.result;
+                     });
+        }
+        </script>
+</div><!--end test spark photon button-->
