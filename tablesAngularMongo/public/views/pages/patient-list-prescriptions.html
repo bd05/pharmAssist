@@ -17,8 +17,9 @@
                                 <th>Refill Frequency</th>
                                 <th>Expiration Date</th>
                                 <th>How to Apply/Dosage</th>
-                                <th></th> <!--for refill input and button-->
-                                <th></th>
+                                <th></th> <!--for edit button-->
+                                <th></th><!--for refill input-->
+                                <th></th><!--for refill button-->
                             </tr>
                         </thead>
                         <tbody>
@@ -31,6 +32,13 @@
                                 <td>{{prescription.refill}}</td>
                                 <td>{{prescription.expiration}}</td>
                                 <td>{{prescription.instructions}}</td>
+                                <td>
+                                    <button id="btnEdit" type="button" class="btn btn-warning btnEdit" ng-click="editPresc($event)">Edit</button>
+                                </td>
+                                <td><input type="text"  placeholder=" enter number of pills"><br></td> <!--for refill input-->
+                                <td>
+                                    <button id="btnRefill" type="button" class="btn btn-success btnRefill" ng-click="refill()">Refill</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -39,6 +47,6 @@
         </div>
     </div>
     <div class="panel-footer">
-        <button id="btnAdd" type="button" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i> Add Medication</button>
+        <button class="btn btn-default" ng-click="addPresc($event)">Add row</button>
     </div>
 </div>
