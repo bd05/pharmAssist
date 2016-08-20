@@ -1,4 +1,4 @@
-app.controller('patientPrescController', function($scope, $compile) {
+app.controller('patientPrescController', function($scope, $http, $location) {
         $scope.prescHistory = [
             {
                 name: 'example med',
@@ -131,5 +131,71 @@ app.controller('patientPrescController', function($scope, $compile) {
         $scope.refill = function($event) {
             console.log("photon stuff");
         }
+
+//photon
+          var deviceID    = "1a003a001247343339383037";
+          var accessToken = "d049cd8a80da947956c2421bc3bb5ae2fbf34d5e";
+          var setFunc = "setVal";
+          var getFunc = "getVal";
+
+// Simple GET request example:
+$scope.getSparkValue = function(){
+        $http.get("https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken).success(function(result) {
+                document.getElementById("gotPos").innerHTML = json.result;
+                console.log(result);
+              }).
+              error(function(result) {
+                console.log("get didn't work");
+              });
+}
+/*$http({
+  method: 'GET',
+  url: "https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken;
+}).then(function successCallback(response) {
+    document.getElementById("gotPos").innerHTML = json.response;
+
+  }, function errorCallback(response) {
+    console.log("get didn't work");
+  });*/
+
+// Simple post
+/*
+$scope.setValue = function () {
+    console.log("got to setValue");
+    var newValue = document.getElementById('degBoxId').value;
+    console.log("newValue as of setValue: " + newValue);
+            //sendSparkPills(newValue);
+
+    $http.post("https://api.spark.io/v1/devices/" + deviceID + "/" + setFunc + "/?access_token=" + accessToken, newValue).success(function(result) {
+        document.getElementById("gotPos").innerHTML = json.result;
+        console.log(result);
+      }).
+      error(function(result) {
+        console.log("set didn't work");
+      });
+}
+*/
+
+
+$scope.setValue = function () {
+
+    console.log("got to setValue");
+    var newValue = document.getElementById('degBoxId').value;
+    console.log("newValue as of setValue: " + newValue);
+
+        $http({
+            method: 'POST',
+            url: "https://api.spark.io/v1/devices/" + deviceID + "/" + setFunc + "/?access_token=" + accessToken,
+            data: $.param({args: newValue}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+        .success(function(data, status, headers, config) {    
+            document.getElementById("gotPos").innerHTML = data;
+            console.log("json sent! data sent was: " + data);
+        })
+        .error(function(data, status, headers, config) {
+            console.log("set didn't work");
+        });
+}
 
 });

@@ -60,7 +60,9 @@
       <form action="demo_form.asp">
       test int input: <input type="text" id="degBoxId"><br>
       </form>
-      <button onclick="setValue()">send number of pills</button>
+      <button ng-click="setValue()">send number of pills</button>
+      <button ng-click="getSparkValue()">Click for spark value</button>
+      <!--<button onclick="setValue()">send number of pills</button>
       <button onclick="getSparkValue()">Click for spark value</button>
 
         <script type="text/javascript">
@@ -86,5 +88,5 @@
                      document.getElementById("gotPos").innerHTML = json.result;
                      });
         }
-        </script>
+        </script>-->
 </div><!--end test spark photon button-->
