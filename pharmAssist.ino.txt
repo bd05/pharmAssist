@@ -1,0 +1,75 @@
+// ------------
+// -IR + DC motor for the photon.
+// -user enters pill requirement value into field on html page, then clicks button to send value to photon
+// -motor starts turning after pill requirement value is entered
+// -motor will stop turning when pill requirement value is reached.
+// -user must input pill requirement value into html page's field once again to start motor again
+// ------------
+
+int IRRead= A1;
+int IRValue=0;
+int pillNum = 0;
+int pillReq;
+
+int boardLed = D7;
+
+int speedPin = D0; //D3; // H-bridge enable pin for speed control
+int HBridge1 = D1;//D6; // H-bridge leg 1
+int HBridge2 = D2;//D5; // H-bridge leg 2
+int speed_value_motor; // value for motor speed
+
+int pos = 0;  
+
+
+void setup() {
+  Serial.begin(9600); 
+  pinMode(boardLed, OUTPUT);
+  pinMode(speedPin, OUTPUT);
+  pinMode(HBridge1, OUTPUT);
+  pinMode(HBridge2, OUTPUT);
+  
+  Spark.function("setVal", setPills);
+  Spark.variable("getVal", &pillReq, INT);
+
+}
+
+
+void loop() {
+  int IRValue=analogRead(IRRead);  //variable to store values from the photodiode   
+  delay(50);
+  Serial.println(IRValue);
+}
+
+void motor() {
+        digitalWrite(boardLed,HIGH);
+        // put motor in forward motion
+        digitalWrite(HBridge1, LOW); // set leg 1 of the H-bridge low
+        digitalWrite(HBridge2, HIGH); // set leg 2 of the H-bridge high
+        // control the speed 0- 255
+        speed_value_motor = 255; 
+        analogWrite(speedPin, speed_value_motor); // output speed as pwm value
+}
+
+int setPills(String value) {
+    pillNum = 0;
+    pillReq = value.toInt();
+    Serial.println(pillReq);
+
+    while(pillNum < pillReq){
+        motor();
+        int IRValue=analogRead(IRRead);  //variable to store values from the photodiode   
+        delay(50);
+        Serial.println(IRValue);
+        
+        if(IRValue > 500){
+          pillNum++;
+          Serial.println("pill passed.");
+          Serial.println("pill count is now:" + pillNum);
+        }
+    }
+    
+     analogWrite(speedPin, LOW);
+     digitalWrite(boardLed, LOW);
+    
+    return 0;
+}
