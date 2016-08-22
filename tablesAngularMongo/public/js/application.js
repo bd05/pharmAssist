@@ -5,18 +5,6 @@ app.run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 });
 
-//photon
-var deviceID    = "1a003a001247343339383037";
-var accessToken = "d049cd8a80da947956c2421bc3bb5ae2fbf34d5e";
-var setFunc = "setVal";
-var getFunc = "getVal";
-
-app.factory( getFunc, function($resource) {
-  return $resource("https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken);
-})
-
-//end photon
-
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
     $stateProvider

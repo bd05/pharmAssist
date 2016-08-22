@@ -18,8 +18,8 @@
                                 <th>Expiration Date</th>
                                 <th>How to Apply/Dosage</th>
                                 <th></th> <!--for edit button-->
-                                <th></th><!--for refill input-->
-                                <th></th><!--for refill button-->
+                                <!--<th></th>--><!--for refill input-->
+                                <!--<th></th>--><!--for refill button-->
                             </tr>
                         </thead>
                         <tbody>
@@ -35,10 +35,12 @@
                                 <td>
                                     <button id="btnEdit" type="button" class="btn btn-warning btnEdit" ng-click="editPresc($event)">Edit</button>
                                 </td>
-                                <td><input type="text"  placeholder=" enter number of pills"><br></td> <!--for refill input-->
+                                <td></td>
+                                <!--for refill input-->
+                               <!-- <td><input type="text"  placeholder=" enter number of pills"><br></td> 
                                 <td>
-                                    <button id="btnRefill" type="button" class="btn btn-success btnRefill" ng-click="refill()">Refill</button>
-                                </td>
+                                    <button id="btnRefill" type="button" class="btn btn-success btnRefill" ng-click="setValue()">Refill</button>
+                                </td>-->
                             </tr>
                         </tbody>
                     </table>
@@ -51,42 +53,19 @@
     </div>
 </div>
 
-<div><!--test spark photon button-->
-    <p>User Specified number: <span id="curPos"></span><br></p>
+<div><!--particle photon button-->
+    <!--test that values can be sent back and forth between particle-->
+    <!--<p>User Specified number: <span id="curPos"></span><br></p>
       <p>
         Value retrieved from spark: <span id="gotPos"></span>
-      </p>
+      </p>-->
       <br>
       <form action="demo_form.asp">
-      test int input: <input type="text" id="degBoxId"><br>
+      <input type="text" id="drugIDSpec" placeholder="Enter the drug DIN number"><br>
+      <input type="text" id="refillNum" placeholder="Enter the number of pills"><br>
       </form>
-      <button ng-click="setValue()">send number of pills</button>
-      <button ng-click="getSparkValue()">Click for spark value</button>
-      <!--<button onclick="setValue()">send number of pills</button>
-      <button onclick="getSparkValue()">Click for spark value</button>
+      <button class="btn btn-success btnRefill" ng-click="setValue()">Refill</button>
+      <!--test that values can be sent back and forth between particle-->
+      <!--<button ng-click="getSparkValue()">Click for spark value</button>-->
 
-        <script type="text/javascript">
-          var deviceID    = "1a003a001247343339383037";
-          var accessToken = "d049cd8a80da947956c2421bc3bb5ae2fbf34d5e";
-          var setFunc = "setVal";
-          var getFunc = "getVal";
-          function setValue() {
-            console.log("got to setValue");
-            var newValue = document.getElementById('degBoxId').value;
-            console.log("newValue as of setValue: " + newValue);
-            sendSparkPills(newValue);
-          }
-          function sendSparkPills(newValue) {
-        var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
-            $.post( requestURL, { params: newValue, access_token: accessToken });
-            //display on web page
-            document.getElementById("curPos").innerHTML = newValue;
-          }
-        function getSparkValue(){
-          requestURL = "https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken;
-            $.getJSON(requestURL, function(json) {
-                     document.getElementById("gotPos").innerHTML = json.result;
-                     });
-        }
-        </script>-->
 </div><!--end test spark photon button-->

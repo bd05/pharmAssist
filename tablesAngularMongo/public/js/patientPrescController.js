@@ -1,4 +1,4 @@
-app.controller('patientPrescController', function($scope, $http, $location) {
+app.controller('patientPrescController', function($scope, $compile, $http, $location) {
         $scope.prescHistory = [
             {
                 name: 'example med',
@@ -37,8 +37,8 @@ app.controller('patientPrescController', function($scope, $http, $location) {
                     "<td><input type='text'/></td>"+
                     "<td><input type='button' class='btn btn-info' id='btnSave' value='Save''></td>"+
                     "<td><p></p></td>"+ //for edit button
-                    "<td><p></p></td>"+ //for refill input field
-                    "<td><p></p></td>"+ //for refill button
+                    //"<td><p></p></td>"+ //for refill input field
+                    //"<td><p></p></td>"+ //for refill button 
                     "</tr>");
 
                 angular.element(document.querySelector('#btnSave')).bind("click", function(e){
@@ -60,9 +60,9 @@ app.controller('patientPrescController', function($scope, $http, $location) {
                 var tdExp = par.children("td:nth-child(7)");
                 var tdInstruction = par.children("td:nth-child(8)");
                 var tdEditButton = par.children("td:nth-child(9)");
-                var tdRefillReq = par.children("td:nth-child(10)");
-                var tdRefillButton = par.children("td:nth-child(11)");
-                //var tdBlank = par.children("td:nth-child(12)");
+                var tdBlank = par.children("td:nth-child(10)");
+                //var tdRefillReq = par.children("td:nth-child(10)");
+                //var tdRefillButton = par.children("td:nth-child(11)");
 
                 tdName.html(tdName.children("input[type=text]").val());
                 tdNum.html(tdNum.children("input[type=text]").val());
@@ -76,13 +76,13 @@ app.controller('patientPrescController', function($scope, $http, $location) {
                 var editBtnHTML = "<input type='button' class='btn btn-warning' id='btnEdit' value='Edit' ng-click='editPresc($event)'> ";
                 var editButton = $compile(editBtnHTML)($scope);
                 tdEditButton.html(editButton);
+                tdBlank.html("<p></p>"); //to erase the delete button
 
-                tdRefillReq.html("<input type='text' placeholder='enter number of pills'>");
-                //tdBlank.html("<p></p>"); //to erase the delete button
+                //tdRefillReq.html("<input type='text' placeholder='enter number of pills'>");
                 //refill button
-                var refillBtnHTML = "<input type='button' class='btn btn-success' id='btnRefill' value='Refill' ng-click='refill()''> ";
+                /*var refillBtnHTML = "<input type='button' class='btn btn-success' id='btnRefill' value='Refill' ng-click='setValue()''> ";
                 var refillButton = $compile(refillBtnHTML)($scope);
-                tdRefillButton.html(refillButton);
+                tdRefillButton.html(refillButton); */
         }
 
         $scope.editPresc = function($event) {
@@ -98,7 +98,7 @@ app.controller('patientPrescController', function($scope, $http, $location) {
                 var tdInstruction = par.children("td:nth-child(8)");
                 var tdSaveButton = par.children("td:nth-child(9)");
                 var tdDeleteButton = par.children("td:nth-child(10)");
-                var tdBlank = par.children("td:nth-child(11)");
+                //var tdBlank = par.children("td:nth-child(11)");
 
                 tdName.html("<input type='text' id='txtName' value='"+tdName.html()+"'/>");
                 tdNum.html("<input type='text' id='txtNum' value='"+tdNum.html()+"'/>");
@@ -119,7 +119,7 @@ app.controller('patientPrescController', function($scope, $http, $location) {
                 var deleteButton = $compile(delBtnHTML)($scope);
                 tdDeleteButton.html(deleteButton);
 
-                tdBlank.html("<p></p>"); //to erase refill button
+                //tdBlank.html("<p></p>"); //to erase refill button
         }     
 
         $scope.delPresc = function($event) {
@@ -128,9 +128,9 @@ app.controller('patientPrescController', function($scope, $http, $location) {
           par.remove();
         }
 
-        $scope.refill = function($event) {
+       /* $scope.refill = function($event) {
             console.log("photon stuff");
-        }
+        }*/
 
 //photon
           var deviceID    = "1a003a001247343339383037";
@@ -138,49 +138,26 @@ app.controller('patientPrescController', function($scope, $http, $location) {
           var setFunc = "setVal";
           var getFunc = "getVal";
 
-// Simple GET request example:
+//GET 
 $scope.getSparkValue = function(){
-        $http.get("https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken).success(function(result) {
-                document.getElementById("gotPos").innerHTML = json.result;
-                console.log(result);
-              }).
-              error(function(result) {
-                console.log("get didn't work");
-              });
+        $http({
+            method: 'GET',
+            url: "https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken,
+        })
+        .success(function(data) {   
+                document.getElementById("gotPos").innerHTML = data;
+                console.log("get success! data retrieved: " + data);         
+        })
+        .error(function(data, status, headers, config) {
+            console.log("get didn't work");         
+        });
 }
-/*$http({
-  method: 'GET',
-  url: "https://api.spark.io/v1/devices/" + deviceID + "/" + getFunc + "/?access_token=" + accessToken;
-}).then(function successCallback(response) {
-    document.getElementById("gotPos").innerHTML = json.response;
-
-  }, function errorCallback(response) {
-    console.log("get didn't work");
-  });*/
-
-// Simple post
-/*
-$scope.setValue = function () {
-    console.log("got to setValue");
-    var newValue = document.getElementById('degBoxId').value;
-    console.log("newValue as of setValue: " + newValue);
-            //sendSparkPills(newValue);
-
-    $http.post("https://api.spark.io/v1/devices/" + deviceID + "/" + setFunc + "/?access_token=" + accessToken, newValue).success(function(result) {
-        document.getElementById("gotPos").innerHTML = json.result;
-        console.log(result);
-      }).
-      error(function(result) {
-        console.log("set didn't work");
-      });
-}
-*/
 
 
 $scope.setValue = function () {
 
     console.log("got to setValue");
-    var newValue = document.getElementById('degBoxId').value;
+    var newValue = document.getElementById('refillNum').value;
     console.log("newValue as of setValue: " + newValue);
 
         $http({
@@ -190,7 +167,7 @@ $scope.setValue = function () {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         })
         .success(function(data, status, headers, config) {    
-            document.getElementById("gotPos").innerHTML = data;
+            //document.getElementById("gotPos").innerHTML = data;
             console.log("json sent! data sent was: " + data);
         })
         .error(function(data, status, headers, config) {
